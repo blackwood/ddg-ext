@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+require 'open-uri'
+
+if File.exists?('./BLOCKLIST')
+  File.delete('./BLOCKLIST')
+end
+
+if File.exists?('./domains.txt')
+  File.delete('./domains.txt')
+end
+
+domains = open('https://raw.githubusercontent.com/notracking/hosts-blocklists/master/domains.txt')
+IO.copy_stream(domains, './domains.txt')
+
+list = File.new("./BLOCKLIST", "w")
+
+File.readlines("./domains.txt").select do |domain| 
+  if m = /address=\/(.*)\//.match(domain)
+    list.puts(m[1])
+  end
+end
+
+File.delete('./domains.txt')

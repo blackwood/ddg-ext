@@ -14,7 +14,7 @@ Then, in the root of the project, run:
 
 ## Usage
 
-By default, this plugin blocks a large list of hosts put together by `notracking` on github.com: [http://github.com/notracking](notracking/hosts)
+By default, this plugin blocks a large list of hosts put together by `notracking` on github.com: [https://github.com/notracking/hosts-blocklists](notracking/hosts-blocklists)
 
 These can be rebuilt by running the following script in this repo:
 

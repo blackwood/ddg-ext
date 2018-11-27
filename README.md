@@ -23,3 +23,14 @@ These can be rebuilt by running the following script in this repo:
 Which pulls in the file locally, reformats it so it's not formatted for `dnsmasq` and it can be parsed into an array in our background script, and replaces the previous `./BLOCKLIST` file with the new one.
 
 A user can also upload their own hosts to block, by visiting the preferences page at `about:addons` and pasting in text with each host on their own line.
+
+Example user blocklist (try on wired.com)
+
+```
+maps.googleapis.com
+twitter.com
+facebook.com
+pixel.condenastdigital.com
+api.viafoura.co
+pagead2.googlesyndication.com
+```

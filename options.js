@@ -1,4 +1,4 @@
-const log = (...args) => console.log.apply(undefined, ['DDG', ...args]);
+const log = (...args) => console.log.apply(undefined, ['DDG-OPT', ...args]);
 const err = (...args) => log(`Error: `, args);
 const onError = e => err(e);
 

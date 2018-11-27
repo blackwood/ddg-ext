@@ -10,4 +10,4 @@ First install the `web-ext` CLI:
 
 Then, in the root of the project, run:
 
-`web-ext run --verbose`
+`web-ext run --verbose --browser-console`

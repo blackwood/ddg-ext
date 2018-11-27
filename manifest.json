@@ -11,5 +11,13 @@
       "js": ["main.js"]
     }
   ],
-  "permissions": ["webRequest", "webRequestBlocking", "<all_urls>"]
+  "options_ui": {
+    "page": "options.html"
+  },
+  "permissions": ["storage", "webRequest", "webRequestBlocking", "<all_urls>"],
+  "applications": {
+    "gecko": {
+      "id": "ddg@blackwood.io"
+    }
+  }
 }

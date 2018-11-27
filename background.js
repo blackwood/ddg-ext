@@ -1,22 +1,39 @@
 const log = (...args) => console.log.apply(undefined, ['DDG', ...args]);
+const err = (...args) => log(`Error: `, args);
+const onError = e => err(e);
 
-const blocklist = ['www.google-analytics.com', 'pagead2.googlesyndication.com'];
+Promise.all([
+  fetch('./BLOCKLIST').then(res => res.text()),
+  browser.storage.sync
+    .get('userblocklist')
+    .then(res => (res.userblocklist ? res.userblocklist.split('\n') : []))
+])
+  .then(([blocklist, userblocklist]) => {
+    const list = blocklist
+      .split('\n')
+      .concat(userblocklist)
+      .filter(Boolean);
 
-const handleBeforeRequest = request => {
-  const url = new URL(request.url);
-  const { hostname } = url;
-  if (blocklist.indexOf(hostname) > -1) {
-    log(`BLOCKED: ${hostname}`);
-    return {
-      cancel: true
+    const handleBeforeRequest = request => {
+      let parser = document.createElement('a');
+      parser.href = request.url;
+      if (
+        parser.hostname.trim().length > 0 &&
+        list.indexOf(parser.hostname) > -1
+      ) {
+        log(`BLOCKED: ${parser.hostname}`);
+        return {
+          cancel: true
+        };
+      }
     };
-  }
-};
 
-browser.webRequest.onBeforeRequest.addListener(
-  handleBeforeRequest,
-  {
-    urls: ['<all_urls>']
-  },
-  ['blocking']
-);
+    browser.webRequest.onBeforeRequest.addListener(
+      handleBeforeRequest,
+      {
+        urls: ['<all_urls>']
+      },
+      ['blocking']
+    );
+  })
+  .catch(onError);

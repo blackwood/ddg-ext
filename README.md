@@ -12,6 +12,10 @@ Then, in the root of the project, run:
 
 `web-ext run --verbose --browser-console`
 
+Then, to transpile the JS in development mode, run this command in another shell:
+
+`parcel watch background.js main.js options.html popup.html --public-url '.'`
+
 ## Usage
 
 By default, this plugin blocks a large list of hosts put together by `notracking` on github.com: [notracking/hosts-blocklists](https://github.com/notracking/hosts-blocklists)

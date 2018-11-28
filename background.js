@@ -1,12 +1,6 @@
-const noop = () => undefined;
-const log = (...args) => console.log.apply(undefined, ['DDG-BKG', ...args]);
-const err = (...args) => log(`Error: `, args);
-const onError = e => err(e);
-let parser = document.createElement('a');
-const getHostname = url => {
-  parser.href = url;
-  return parser.hostname;
-};
+import { makeLogger, getHostname, noop } from './utils';
+const { log, onError } = makeLogger('BKG');
+
 let blocked = {};
 let domain = '';
 const recordBlocked = hostname => {
@@ -37,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 Promise.all([
-  fetch('./BLOCKLIST').then(res => res.text()),
+  fetch('./../BLOCKLIST').then(res => res.text()),
   browser.storage.sync
     .get('userblocklist')
     .then(res => (res.userblocklist ? res.userblocklist.split('\n') : [])),

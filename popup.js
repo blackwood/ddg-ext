@@ -1,11 +1,5 @@
-const log = (...args) => console.log.apply(undefined, ['DDG-POP', ...args]);
-const err = (...args) => log(`Error: `, args);
-const onError = e => err(e);
-let parser = document.createElement('a');
-const getHostname = url => {
-  parser.href = url;
-  return parser.hostname;
-};
+import { makeLogger, getHostname } from './utils';
+const { onError } = makeLogger('POP');
 
 const domain = document.getElementById('domain');
 const setDomainHTML = url => {

@@ -1,6 +1,5 @@
-const log = (...args) => console.log.apply(undefined, ['DDG-OPT', ...args]);
-const err = (...args) => log(`Error: `, args);
-const onError = e => err(e);
+import { makeLogger } from './utils';
+const { onError } = makeLogger('OPT');
 
 function saveOptions(e) {
   e.preventDefault();

@@ -1,7 +1,7 @@
-const log = (...args) => console.log.apply(undefined, ['DDG-CON', ...args]);
-const err = (...args) => log(`Error: `, args);
-const onError = e => err(e);
+import { makeLogger } from './utils';
+const { log } = makeLogger('CON');
 
 browser.runtime.onMessage.addListener(request => {
+  log('Message received.');
   return Promise.resolve({ response: 'Received in content script.' });
 });

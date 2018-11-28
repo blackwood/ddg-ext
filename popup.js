@@ -18,7 +18,7 @@ const setBlockedlistHTML = url => {
     if (typeof list === 'undefined' || list.length === 0) return;
     const blockedlistHTML = [...new Set(blocked[getHostname(url)])]
       .map((hostname, i) => {
-        const classnames = i % 2 === 1 ? '' : 'stripe-dark';
+        const classnames = i % 2 === 1 ? 'pa1' : 'pa1 stripe-dark';
         return `<li class="${classnames}">${hostname}</li>`;
       })
       .join('');

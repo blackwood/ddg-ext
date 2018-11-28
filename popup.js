@@ -27,16 +27,20 @@ const setBlockedlistHTML = url => {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-  browser.tabs.query(
-    {
-      active: true,
-      currentWindow: true,
-      windowType: 'normal'
-    },
-    tabs => {
-      const [url] = tabs.map(tab => tab.url);
-      setDomainHTML(url);
-      setBlockedlistHTML(url);
-    }
-  );
+  const setPopupHTML = () => {
+    browser.tabs.query(
+      {
+        active: true,
+        currentWindow: true,
+        windowType: 'normal'
+      },
+      tabs => {
+        const [url] = tabs.map(tab => tab.url);
+        setDomainHTML(url);
+        setBlockedlistHTML(url);
+        setTimeout(setPopupHTML, 5000);
+      }
+    );
+  };
+  setPopupHTML();
 });

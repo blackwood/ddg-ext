@@ -14,13 +14,14 @@ const setDomainHTML = url => {
 const blockedlist = document.getElementById('blockedlist');
 const setBlockedlistHTML = url => {
   browser.storage.local.get().then(({ blocked = {} }) => {
-    const blockedlistHTML = blocked[getHostname(url)]
-      .map(hostname => {
-        log(hostname);
-        return `<li>${hostname}</li>`;
+    const list = blocked[getHostname(url)];
+    if (typeof list === 'undefined' || list.length === 0) return;
+    const blockedlistHTML = [...new Set(blocked[getHostname(url)])]
+      .map((hostname, i) => {
+        const classnames = i % 2 === 1 ? '' : 'stripe-dark';
+        return `<li class="${classnames}">${hostname}</li>`;
       })
-      .join();
-    log(blockedlistHTML);
+      .join('');
     blockedlist.innerHTML = blockedlistHTML;
   }, onError);
 };

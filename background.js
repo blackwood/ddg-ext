@@ -1,3 +1,4 @@
+const noop = () => undefined;
 const log = (...args) => console.log.apply(undefined, ['DDG-BKG', ...args]);
 const err = (...args) => log(`Error: `, args);
 const onError = e => err(e);
@@ -17,8 +18,7 @@ const recordBlocked = hostname => {
     .set({
       blocked
     })
-    .then(log, onError);
-  log(blocked);
+    .then(noop, onError);
 };
 const setDomain = val => {
   domain = val;
@@ -41,14 +41,13 @@ Promise.all([
   browser.storage.sync
     .get('userblocklist')
     .then(res => (res.userblocklist ? res.userblocklist.split('\n') : [])),
-  browser.tabs.getCurrent().then(log)
+  browser.tabs.getCurrent().then(() => null)
 ])
   .then(([blocklist, userblocklist]) => {
     const list = blocklist
       .split('\n')
       .concat(userblocklist)
       .filter(Boolean);
-    log(userblocklist);
     const handleBeforeRequest = request => {
       const hostname = getHostname(request.url);
       if (hostname.trim().length > 0 && list.indexOf(hostname) > -1) {

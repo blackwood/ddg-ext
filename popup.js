@@ -12,8 +12,17 @@ const setDomainHTML = url => {
   domain.innerHTML = getHostname(url);
 };
 const blockedlist = document.getElementById('blockedlist');
-const setBlockedlistHTML = blocked => {
-  blockedlist.innerHTML = JSON.stringify(blocked);
+const setBlockedlistHTML = url => {
+  browser.storage.local.get().then(({ blocked = {} }) => {
+    const blockedlistHTML = blocked[getHostname(url)]
+      .map(hostname => {
+        log(hostname);
+        return `<li>${hostname}</li>`;
+      })
+      .join();
+    log(blockedlistHTML);
+    blockedlist.innerHTML = blockedlistHTML;
+  }, onError);
 };
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -24,14 +33,10 @@ document.addEventListener('DOMContentLoaded', function() {
       status: 'complete',
       windowType: 'normal'
     },
-    tabs => setDomainHTML(tabs.map(tab => tab.url)[0])
+    tabs => {
+      const [url] = tabs.map(tab => tab.url);
+      setDomainHTML(url);
+      setBlockedlistHTML(url);
+    }
   );
 });
-
-async function retreiveBlockedlist() {
-  await browser.storage.local
-    .get()
-    .then(({ blocked }) => setBlockedlistHTML(blocked), onError);
-}
-
-retreiveBlockedlist();

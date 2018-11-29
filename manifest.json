@@ -10,12 +10,6 @@
     "default_title": "DuckDuckGo Tracker Blocker",
     "default_popup": "dist/popup.html"
   },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["dist/main.js"]
-    }
-  ],
   "options_ui": {
     "page": "dist/options.html"
   },

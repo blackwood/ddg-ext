@@ -8,8 +8,9 @@ function saveOptions(e) {
       userblocklist: document.querySelector('#user-blocklist').value
     })
     .then(() => {
-      browser.storage.local.set({ blocked: {} }).then(log, onError);
-      browser.runtime.reload();
+      browser.storage.sync.set({ blocked: {} }).then(() => {
+        browser.runtime.reload();
+      });
     });
 }
 

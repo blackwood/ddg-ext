@@ -1,29 +1,30 @@
 # DuckDuckGo Tracker Blocker (Firefox Extension)
 
-## Installation
-
-Follow the instructions here:
-[Temporary installation in Firefox](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Temporary_Installation_in_Firefox)
-
-## Development
-
-Before developing, clone the repo locally.
+Before installation or development, clone the repo locally.
 
 Then, install the `web-ext` CLI:
 
 `yarn global add web-ext`
 
-Then, in the root of the project, run:
+The extension can then be tested using temporary loading in Firefox.
 
-`web-ext run --verbose --browser-console`
+## Development
 
-Then, to transpile the JS in development mode, run this command in another shell:
+To transpile the JS in development mode, run this command in another shell:
 
 `parcel watch background.js options.html popup.html --public-url '.'`
 
 In order to build the scripts, simply run with the `build` instead of the `watch` command:
 
 `parcel build background.js options.html popup.html --public-url '.'`
+
+Then, in the root of the project, run:
+
+`web-ext run --verbose --browser-console`
+
+To build the extension run:
+
+`web-ext build`
 
 ## Usage
 

@@ -13,8 +13,6 @@ const makeExtensionLogger = (ext = '', mod = '') => {
 
 export const makeLogger = makeExtensionLogger.bind(undefined, 'DDG');
 
-const log = makeLogger('UTL');
-
 const makeGetHostname = () => {
   let parser = document.createElement('a');
   const getHostname = url => {

@@ -4,7 +4,7 @@ const { log, onError } = makeLogger('BKG');
 const recordBlocked = (domain, hostname) => {
   browser.storage.sync
     .get('blocked')
-    .then(res => res.blocked)
+    .then(({ blocked = {} }) => blocked)
     .then(blocked => {
       if (typeof blocked[domain] === 'undefined') {
         blocked[domain] = [];
@@ -22,7 +22,9 @@ Promise.all([
   fetch('./../BLOCKLIST').then(res => res.text()),
   browser.storage.sync
     .get('userblocklist')
-    .then(res => (res.userblocklist ? res.userblocklist.split('\n') : []))
+    .then(({ userblocklist = '' }) =>
+      userblocklist.length > 0 ? userblocklist.split('\n') : []
+    )
 ])
   .then(([blocklist, userblocklist]) => {
     const list = blocklist
@@ -31,9 +33,12 @@ Promise.all([
       .filter(Boolean);
     const handleBeforeRequest = request => {
       const hostname = getHostname(request.url);
+
       Promise.all([
         getActiveTabDomain(),
-        browser.storage.sync.get('disabled').then(res => res.disabled)
+        browser.storage.sync.get('disabled').then(({ disabled = [] }) => {
+          return disabled;
+        })
       ]).then(([domain, disabled]) => {
         if (disabled.indexOf(domain) >= 0) {
           return;
@@ -45,7 +50,7 @@ Promise.all([
             cancel: true
           };
         }
-      });
+      }).onError;
     };
 
     browser.webRequest.onBeforeRequest.addListener(

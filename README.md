@@ -47,6 +47,10 @@ pixel.condenastdigital.com
 pagead2.googlesyndication.com
 ```
 
+While visiting a site, you can control a per-domain setting to disable blocking for that particular site (if experiencing degradation of the webpage).
+
+This is accessible in the popup, which is where you can also see current trackers blocked.
+
 ## Roadmap
 
 Some immediate improvements that can be made on the current extension.

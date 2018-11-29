@@ -229,7 +229,6 @@ Promise.all([fetch('./../BLOCKLIST').then(function (res) {
       blocklist = _ref2[0],
       userblocklist = _ref2[1];
 
-  log(userblocklist);
   var list = blocklist.split('\n').concat(userblocklist).filter(Boolean);
 
   var handleBeforeRequest = function handleBeforeRequest(request) {
@@ -275,7 +274,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58351" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51449" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

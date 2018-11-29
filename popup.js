@@ -1,5 +1,5 @@
 import { makeLogger, getHostname } from './utils';
-const { onError } = makeLogger('POP');
+const { log, onError } = makeLogger('POP');
 
 const domain = document.getElementById('domain');
 const setDomainHTML = url => {
@@ -20,6 +20,12 @@ const setBlockedlistHTML = url => {
   }, onError);
 };
 
+document.getElementById('disable').addEventListener('click', e => {
+  e.preventDefault();
+  log(document.domain);
+  // browser.storage.local.set()
+});
+
 document.addEventListener('DOMContentLoaded', function() {
   const setPopupHTML = () => {
     browser.tabs.query(
@@ -32,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const [url] = tabs.map(tab => tab.url);
         setDomainHTML(url);
         setBlockedlistHTML(url);
-        setTimeout(setPopupHTML, 5000);
+        setTimeout(setPopupHTML, 1500);
       }
     );
   };

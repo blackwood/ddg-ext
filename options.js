@@ -3,9 +3,14 @@ const { onError } = makeLogger('OPT');
 
 function saveOptions(e) {
   e.preventDefault();
-  browser.storage.sync.set({
-    userblocklist: document.querySelector('#user-blocklist').value
-  });
+  browser.storage.sync
+    .set({
+      userblocklist: document.querySelector('#user-blocklist').value
+    })
+    .then(() => {
+      browser.storage.local.set({ blocked: {} }).then(log, onError);
+      browser.runtime.reload();
+    });
 }
 
 function restoreOptions() {

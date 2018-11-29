@@ -179,7 +179,6 @@ var _utils = require("./utils");
 var _makeLogger = (0, _utils.makeLogger)('CON'),
     log = _makeLogger.log;
 
-consolelog('DDG', Default);
 browser.runtime.onMessage.addListener(function (request) {
   log('Message received.');
   return Promise.resolve({
@@ -213,7 +212,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58351" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51449" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

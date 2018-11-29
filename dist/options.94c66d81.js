@@ -183,6 +183,11 @@ function saveOptions(e) {
   e.preventDefault();
   browser.storage.sync.set({
     userblocklist: document.querySelector('#user-blocklist').value
+  }).then(function () {
+    browser.storage.local.set({
+      blocked: {}
+    }).then(log, onError);
+    browser.runtime.reload();
   });
 }
 
@@ -223,7 +228,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58351" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51449" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

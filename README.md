@@ -2,9 +2,14 @@
 
 ## Installation
 
+Follow the instructions here:
+[Temporary installation in Firefox](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Temporary_Installation_in_Firefox)
+
 ## Development
 
-First install the `web-ext` CLI:
+Before developing, clone the repo locally.
+
+Then, install the `web-ext` CLI:
 
 `yarn global add web-ext`
 
